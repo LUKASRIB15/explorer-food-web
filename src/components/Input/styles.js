@@ -4,6 +4,14 @@ export const InputLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  position: relative;
+
+  & svg{
+    position: absolute;
+    top: 50%;
+    left: 1.4rem;
+    transform: translateY(-50%);
+  }
 
   & label {
     font-size: 1.6rem;
@@ -17,8 +25,10 @@ export const InputLayout = styled.div`
     font-size: 1.6rem;
     border: 0;
     border-radius: 0.8rem;
-    padding-inline: 1.4rem;
+    padding-right: 1.4rem;
+    padding-left: ${props=>props.iconExists ? '4.8rem' : '1.4rem'};
     padding-block: 1.2rem;
+    width: 100%;
 
     &::placeholder {
       color: ${(props) => props.theme.colors['light-500']};

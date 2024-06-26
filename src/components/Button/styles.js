@@ -12,9 +12,19 @@ export const ButtonLayout = styled.button`
   border-radius: 5px;
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+
   transition: 0.3s;
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${(props) => props.theme.colors['tomato-200']};
+  }
+
+  &:disabled{
+    cursor: not-allowed;
+    background-color: ${props=>props.theme.colors["tomato-400"]};
   }
 `
