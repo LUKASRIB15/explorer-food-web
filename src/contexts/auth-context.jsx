@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import { api } from '../libs/axios/api'
 
+
 export const AuthContext = createContext({})
 
 export function AuthProvider({ children }) {
@@ -17,15 +18,30 @@ export function AuthProvider({ children }) {
   }
 
   async function signIn({ email, password }) {
-    const access = await api.post('/sessions', { email, password })
+    try {
+      const access = await api.post('/sessions', { email, password })
 
-    await connectUser(access.data.token)
+      await connectUser(access.data.token)
+    } catch (error) {
+      throw error
+    }
   }
 
   async function signUp({ name, email, password }) {
-    const access = await api.post('/users', { name, email, password })
+    try{
+      const access = await api.post('/users', { name, email, password })
 
-    await connectUser(access.data.token)
+
+      await connectUser(access.data.token)
+    }catch(error){
+      throw error
+    }
+  }
+
+  async function signOut(){
+    localStorage.removeItem('@explorer-food:token')
+    localStorage.removeItem('@explorer-food:user')
+    setUser(null)
   }
 
   useEffect(() => {
@@ -39,7 +55,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ signIn, signUp, user }}>
+    <AuthContext.Provider value={{ signIn, signUp, signOut, user }}>
       {children}
     </AuthContext.Provider>
   )
