@@ -34,12 +34,6 @@ Projeto desenvolvidos com as seguintes tecnologias:
 
 # 💻 Aplicação em produção: https://explorer-food-web.netlify.app
 
-- Estilização de páginas
-- Criação de navegação entre páginas
-- Consumir API
-- Autenticação e Autorização
-- Upload de imagens
-- Carrossel com o Swiper
 
 <br/><br/>
 
