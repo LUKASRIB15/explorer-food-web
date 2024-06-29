@@ -5,7 +5,7 @@ import { Input } from "../Input";
 import { useAuthContext } from "../../hooks/use-auth-context";
 
 export function Header({onChangeSearch, returnToPageTop, onActiveMenu, value}){
-  const {signOut} = useAuthContext()
+  const {signOut, user} = useAuthContext()
 
   function handleSignOut(){
     signOut()
@@ -24,7 +24,10 @@ export function Header({onChangeSearch, returnToPageTop, onActiveMenu, value}){
             width={24}
             height={24}
           />
-          <h1>food explorer</h1>
+          <div>
+            <h1>food explorer</h1>
+            {user && user.role === "admin" &&  <span>admin</span>}
+          </div>
         </button>
         <Input 
           identifier={"search"}
@@ -33,11 +36,20 @@ export function Header({onChangeSearch, returnToPageTop, onActiveMenu, value}){
           onChange={(event)=>onChangeSearch(event.target.value)}
           value={value}
         />
-        <HeaderLink href="#">
-          <Receipt size={24} color="#FFFFFF"/>
-          <span>0</span>
-          <p>Pedidos (0)</p>
-        </HeaderLink>
+        {
+          user && user.role === "client" ?
+          <HeaderLink href="#">
+            <Receipt size={24} color="#FFFFFF"/>
+            <span>0</span>
+            <p>Pedidos (0)</p>
+          </HeaderLink>
+
+          :
+
+          <HeaderLink href="/new-product">
+            <p>Novo prato</p>
+          </HeaderLink>
+        }
         <button onClick={handleSignOut}>
           <SignOut size={24} color="#FFFFFF"/>
         </button>

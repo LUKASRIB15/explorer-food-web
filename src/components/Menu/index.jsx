@@ -3,10 +3,12 @@ import { MagnifyingGlass, X } from "@phosphor-icons/react";
 import { Input } from "../Input";
 import { MenuFooter, MenuHeader, MenuLayout, MenuMain } from "./styles";
 import { useAuthContext } from "../../hooks/use-auth-context";
+import { useNavigate } from "react-router-dom";
 
 export function Menu({onDesactiveMenu, menu, onChangeSearch, value}){
+  const navigate = useNavigate()
 
-  const {signOut} = useAuthContext()
+  const {signOut, user} = useAuthContext()
 
   function handleKeyDown(event){
     if(event.key === "Enter"){
@@ -32,6 +34,10 @@ export function Menu({onDesactiveMenu, menu, onChangeSearch, value}){
           value={value}
         />
         <section>
+         {
+          user && user.role === "admin" && 
+          <button onClick={()=>navigate("/new-product")}>Novo prato</button>
+          }
           <button onClick={()=>signOut()}>Sair</button>
         </section>
       </MenuMain>

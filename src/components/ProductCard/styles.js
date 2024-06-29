@@ -17,7 +17,7 @@ export const ProductCardLayout = styled.div`
   border: 1px solid ${props=>props.theme.colors["dark-300"]};
   /* min-height: clamp(292px, 30vw, 425px);
   max-height: 425px; */
-  min-height: clamp(292px, 30vw, 425px);
+  //min-height: clamp(292px, 30vw, 425px);
   text-decoration: none;
   color: ${props=>props.theme.colors["light-100"]};
 
