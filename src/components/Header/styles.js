@@ -40,6 +40,19 @@ export const HeaderLayout = styled.header`
   & h1{
     color: ${props=>props.theme.colors["light-100"]};
     font-size: clamp(2rem, 2vw, 2.4rem);
+    line-height: 0.4;
+  }
+
+  & div div {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 0.8rem;
+    
+    & span{
+      color: ${props=>props.theme.colors["cake-200"]};
+      font-size: 1.2rem;
+    }
   }
 
   @media(min-width: 768px){
@@ -58,6 +71,11 @@ export const HeaderLayout = styled.header`
     & div div:nth-child(3){
       flex: 1;
       display: block;
+    }
+
+    & div div {
+      flex-direction: column;
+      align-items: end;
     }
   }
 

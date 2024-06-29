@@ -29,6 +29,12 @@ export const InputLayout = styled.div`
     padding-left: ${props=>props.iconExists ? '4.8rem' : '1.4rem'};
     padding-block: 1.2rem;
     width: 100%;
+    
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
     &::placeholder {
       color: ${(props) => props.theme.colors['light-500']};

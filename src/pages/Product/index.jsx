@@ -12,8 +12,10 @@ import { Button } from "../../components/Button"
 import { useLocation } from "react-router-dom"
 import { formatQuantity } from "../../utils/format-quantity"
 import { formatPrice } from "../../utils/format-price"
+import { useAuthContext } from "../../hooks/use-auth-context"
 
 export function Product(){
+  const {user} = useAuthContext()
   const [product, setProduct] = useState({})
   const params = useParams()
   const location = useLocation()
@@ -87,20 +89,31 @@ export function Product(){
                 }
               </ProductIngredients>
               <ProductFooterActions>
-                <div>
-                  <ProductActions onClick={handleDecrementQuantity}>
-                    <Minus size={24} color="#FFFFFF"/>
-                  </ProductActions>
-                  <span>{formatQuantity(quantity)}</span>
-                  <ProductActions onClick={handleIncrementQuantity}>
-                    <Plus size={24} color="#FFFFFF"/>
-                  </ProductActions>
-                </div>
-                  <Button
-                    icon={Receipt} 
-                    title={`pedir ∙ R$ ${formatPrice(product.price * quantity)}`} 
-                    onClick={()=>navigate(`/product/${product.id}`)}
-                  />
+                {
+                  user && user.role === "client" &&
+                  <div>
+                    <ProductActions onClick={handleDecrementQuantity}>
+                      <Minus size={24} color="#FFFFFF"/>
+                    </ProductActions>
+                    <span>{formatQuantity(quantity)}</span>
+                    <ProductActions onClick={handleIncrementQuantity}>
+                      <Plus size={24} color="#FFFFFF"/>
+                    </ProductActions>
+                  </div>
+                }
+                  {
+                    user && user.role === "client" ?
+                    <Button
+                      icon={Receipt} 
+                      title={`pedir ∙ R$ ${formatPrice(product.price * quantity)}`} 
+                      onClick={()=>navigate(`/product/${product.id}`)}
+                    />
+                    :
+                    <Button
+                      title={"Editar prato"} 
+                      onClick={()=>navigate(`/edit-product/${product.id}`)}
+                    />
+                  }
               </ProductFooterActions>
             </div>
           </section>
